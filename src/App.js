@@ -106,16 +106,17 @@ class Weather extends Component {
   constructor(props){
     super(props)
     this.state = {}
+    this.miasto = ''
     this.url = 'https://ipapi.co/json'
-    this.weatherUrl = 'https://api.openweathermap.org/data/2.5/weather?q='
-    this.weatherApiKey = '&APPID=9fc75b96c3e130cffdee8b45127936db&units=metric'
-    fetch(this.url)
+    this.weatherUrl = 'https://api.openweathermap.org/data/2.5/weather?'
+    this.weatherApiKey = 'APPID=9fc75b96c3e130cffdee8b45127936db&units=metric'
+    navigator.geolocation.getCurrentPosition((position) => {
+      this.lat = position.coords.latitude
+      this.lon = position.coords.longitude
+      fetch(this.weatherUrl+'lat='+this.lat+'&lon='+this.lon+'&'+this.weatherApiKey)
       .then((response) => response.json())
-      .then((ipData) =>
-        fetch(this.weatherUrl+ipData.city+this.weatherApiKey)
-        .then((response) => response.json())
-        .then((weatherData) => this.setState(weatherData))
-      )
+      .then((weatherData) => this.setState(weatherData))
+    })
   }
 
   render() {
@@ -142,7 +143,7 @@ class Weather extends Component {
             this.state.message
               ?
               <div style={{display:'flex',textAlign:'center',justifyContent:'center',flexDirection: 'column'}}>
-                <span style={{display: 'inline', margin:'2px'}}>{this.state.message}</span>
+                <span style={{display: 'inline', margin:'2px'}}>{this.state.message} ({this.miasto})</span>
               </div>
               :
               <div style={{display:'flex',textAlign:'center',justifyContent:'center',flexDirection: 'column'}}>
