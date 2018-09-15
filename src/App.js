@@ -46,6 +46,24 @@ const clothesData = [
   {cloth:'umbrella',minTemp:'-infinity',maxTemp:'infinity',rain:'1'}
 ]
 
+class Container extends Component {
+  constructor() {
+  super()
+  this.state = {data: ''}
+  }
+
+  render() {
+    return (
+      <div className="container" style={containerStyle}>
+          <InputLocation/>
+          <Weather/>
+          <OutfitPicture/>
+          <OutfitDescription/>
+      </div>
+    )
+  }
+}
+
 class Header extends Component {
   render() {
     return (
@@ -77,7 +95,7 @@ class Card extends Component {
 class InputLocation extends Component {
   render() {
     return (
-      <div style={{textAlign: 'center', margin: '15px'}} >
+      <div style={{width:'100%',textAlign: 'center', margin: '15px'}} >
         <h2>Type your city</h2>
         <input type="text"/>
       </div>
@@ -121,9 +139,15 @@ class Weather extends Component {
               </ul>
             </React.Fragment>
             :
-            <div style={{display:'flex',textAlign:'center',justifyContent:'center',flexDirection: 'column'}}>
-              <span style={{display: 'inline', margin:'2px'}}>Loading...</span>
-            </div>
+            this.state.message
+              ?
+              <div style={{display:'flex',textAlign:'center',justifyContent:'center',flexDirection: 'column'}}>
+                <span style={{display: 'inline', margin:'2px'}}>{this.state.message}</span>
+              </div>
+              :
+              <div style={{display:'flex',textAlign:'center',justifyContent:'center',flexDirection: 'column'}}>
+                <span style={{display: 'inline', margin:'2px'}}>Loading...</span>
+              </div>
         }/>
     )}
 }
@@ -158,12 +182,7 @@ class App extends Component {
         <header className="App-header">
           <h1 className="App-title" style={{textAlign: 'center'}} >Welcome to WhatToWear</h1>
         </header>
-        <InputLocation/>
-        <div className="Container" style={containerStyle}>
-          <Weather/>
-          <OutfitPicture/>
-          <OutfitDescription/>
-        </div>
+        <Container/>
       </div>
     );
   }
