@@ -110,8 +110,6 @@ class Weather extends Component {
     this.url = 'https://ipapi.co/json'
     this.weatherUrl = 'https://api.openweathermap.org/data/2.5/weather?'
     this.weatherApiKey = 'APPID=9fc75b96c3e130cffdee8b45127936db&units=metric'
-    "geolocation" in navigator
-    ?
     navigator.geolocation.getCurrentPosition((position) => {
       this.lat = position.coords.latitude
       this.lon = position.coords.longitude
@@ -119,7 +117,6 @@ class Weather extends Component {
       .then((response) => response.json())
       .then((weatherData) => this.setState(weatherData))
     })
-    : console.log("Geolocation not supported")
   }
 
   render() {
@@ -150,7 +147,7 @@ class Weather extends Component {
               </div>
               :
               <div style={{display:'flex',textAlign:'center',justifyContent:'center',flexDirection: 'column'}}>
-                <span style={{display: 'inline', margin:'2px'}}>Loading...</span>
+                <span style={{display: 'inline', margin:'2px'}}>To automatic geolocation, enable GPS and allow your browser to access the location</span>
               </div>
         }/>
     )}
