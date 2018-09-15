@@ -23,6 +23,28 @@ const containerStyle = {
   justifyContent: 'center',
   alignItems: 'center',
 }
+const clothesData = [
+  {cloth:'warmHat',minTemp:'-infinity',maxTemp:'15'},
+  {cloth:'winterJacket',minTemp:'-infinity',maxTemp:'10'},
+  {cloth:'thickGloves',minTemp:'-infinity',maxTemp:'10'},
+  {cloth:'warmPants',minTemp:'-infinity',maxTemp:'10'},
+  {cloth:'scarf',minTemp:'-infinity',maxTemp:'10'},
+  {cloth:'sweater',minTemp:'-infinity',maxTemp:'10'},
+  {cloth:'warmSocks',minTemp:'-infinity',maxTemp:'10'},
+  {cloth:'winterShoes',minTemp:'-infinity',maxTemp:'10'},
+  {cloth:'cap',minTemp:'16',maxTemp:'infinity'},
+  {cloth:'springJacket',minTemp:'11',maxTemp:'15'},
+  {cloth:'jeans',minTemp:'11',maxTemp:'24'},
+  {cloth:'hoodie',minTemp:'11',maxTemp:'20'},
+  {cloth:'boatSocks',minTemp:'11',maxTemp:'infinity'},
+  {cloth:'regularShoes',minTemp:'11',maxTemp:'20'},
+  {cloth:'tShirt',minTemp:'21',maxTemp:'infinity'},
+  {cloth:'shorts',minTemp:'21',maxTemp:'infinity'},
+  {cloth:'sandals',minTemp:'21',maxTemp:'infinity'},
+  {cloth:'raincoat',minTemp:'-infinity',maxTemp:'infinity',rain:'1'},
+  {cloth:'wellingtons',minTemp:'-infinity',maxTemp:'infinity',rain:'1'},
+  {cloth:'umbrella',minTemp:'-infinity',maxTemp:'infinity',rain:'1'}
+]
 
 class Header extends Component {
   render() {
@@ -90,6 +112,7 @@ class Weather extends Component {
               <ul style={{listStyleType: 'none', margin: '5px'}}>
                 <li><span>City: </span>{this.state.name}</li>
                 <li><span>Forecast: </span>{this.state.weather[0].description}</li>
+                <li><span>Main: </span>{this.state.weather[0].main}</li>
                 <li><span>Temperature: </span>{this.state.main.temp}<span>°C</span></li>
                 <li><span>Min temperature: </span>{this.state.main.temp_min}<span>°C</span></li>
                 <li><span>Max temperature: </span>{this.state.main.temp_max}<span>°C</span></li>
