@@ -126,7 +126,7 @@ class Weather extends Component {
             ?
             <React.Fragment>
               <span style={{lineHeight: '55px', margin: '5px'}}>Weather icon: </span>
-              <img src={'http://openweathermap.org/img/w/'+this.state.weather[0].icon+'.png'}
+              <img src={'https://openweathermap.org/img/w/'+this.state.weather[0].icon+'.png'}
               alt="" style={{ right: '0', top: '0',width:'35px'}}/>
               <ul style={{listStyleType: 'none', margin: '5px'}}>
                 <li><span>City: </span>{this.state.name}</li>
