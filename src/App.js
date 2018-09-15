@@ -105,27 +105,24 @@ class InputLocation extends Component {
 class Weather extends Component {
   constructor(props){
     super(props)
-    this.state = {error: ''}
-    this.miasto = ''
+    this.state = {}
     this.url = 'https://ipapi.co/json'
     this.weatherUrl = 'https://api.openweathermap.org/data/2.5/weather?'
     this.weatherApiKey = 'APPID=9fc75b96c3e130cffdee8b45127936db&units=metric'
-    this.showGpsMessage={
-      doesSupport:'1',
-      localisationAllowed: '1'
-    }
+  }
 
-    "geolocation" in navigator
-    ?
-    navigator.geolocation.getCurrentPosition((position) => {
-      this.lat = position.coords.latitude
-      this.lon = position.coords.longitude
-      fetch(this.weatherUrl+'lat='+this.lat+'&lon='+this.lon+'&'+this.weatherApiKey)
-      .then((response) => response.json())
-      .then((weatherData) => this.setState(weatherData))
-    }, (error) => this.setState({error: error}))
-    :
-    this.showGpsMessage.doesSupport=0
+  componentDidMount() {
+        "geolocation" in navigator
+        ?
+        navigator.geolocation.getCurrentPosition((position) => {
+          this.lat = position.coords.latitude
+          this.lon = position.coords.longitude
+          fetch(this.weatherUrl+'lat='+this.lat+'&lon='+this.lon+'&'+this.weatherApiKey)
+          .then((response) => response.json())
+          .then((weatherData) => this.setState(weatherData))
+        }, (error) => this.setState({error: error}))
+        :
+        this.setState({message: "Your browser doesn't support Geolocation_API."})
   }
 
   render() {
@@ -151,16 +148,21 @@ class Weather extends Component {
             :
             this.state.message
               ?
-              <div style={{display:'flex',textAlign:'center',justifyContent:'center',flexDirection: 'column'}}>
-                <span style={{display: 'inline', margin:'2px'}}>{this.state.message} ({this.miasto})</span>
+              <div style={{display:'flex',textAlign:'left',justifyContent:'center',flexDirection: 'column'}}>
+                <span style={{display: 'inline', margin:'2px'}}>{this.state.message}</span>
+                  <span style={{display: 'inline', margin:'2px'}}>You can type your city by hand.</span>
               </div>
               :
               this.state.error
               ?
-              <div style={{display:'flex',textAlign:'center',justifyContent:'center',flexDirection: 'column'}}>
-                <span style={{display: 'inline', margin:'2px', textAlign: 'left'}}>Error!</span>
-                <span style={{display: 'inline', margin:'2px', textAlign: 'left'}}>code: {this.state.error.code}</span>
-                <span style={{display: 'inline', margin:'2px', textAlign: 'left'}}>message: {this.state.error.message}</span>
+              <div style={{display:'flex',textAlign:'left',justifyContent:'center',flexDirection: 'column'}}>
+                <span style={{display: 'inline', margin:'2px'}}>Error info</span>
+                <span style={{display: 'inline', margin:'2px'}}>code: "{this.state.error.code}"</span>
+                <span style={{display: 'inline', margin:'2px'}}>message: "{this.state.error.message}"</span>
+                <span style={{display: 'inline', margin:'2px'}}>How to resolve?</span>
+                <span style={{display: 'inline', margin:'2px'}}>1. Check if your url begin with HTTPS.</span>
+                <span style={{display: 'inline', margin:'2px'}}>2. Turn on GPS on your mobile device.</span>
+                <span style={{display: 'inline', margin:'2px'}}>3. Allow browser to get your location.</span>
               </div>
               :
               <div style={{display:'flex',textAlign:'center',justifyContent:'center',flexDirection: 'column'}}>
