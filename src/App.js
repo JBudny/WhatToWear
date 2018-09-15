@@ -147,7 +147,7 @@ class Weather extends Component {
               </div>
               :
               <div style={{display:'flex',textAlign:'center',justifyContent:'center',flexDirection: 'column'}}>
-                <span style={{display: 'inline', margin:'2px'}}>To automatic geolocation, enable GPS and allow your browser to access the location</span>
+                <span style={{display: 'inline', margin:'2px'}}>Loading...</span>
               </div>
         }/>
     )}
