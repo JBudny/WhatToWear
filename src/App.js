@@ -106,15 +106,17 @@ class Weather extends Component {
   constructor(props){
     super(props)
     this.state = {}
+    this.miasto = ''
     this.url = 'https://ipapi.co/json'
     this.weatherUrl = 'https://api.openweathermap.org/data/2.5/weather?q='
     this.weatherApiKey = '&APPID=9fc75b96c3e130cffdee8b45127936db&units=metric'
     fetch(this.url)
       .then((response) => response.json())
-      .then((ipData) =>
+      .then((ipData) =>  {console.log('Miasto: '+ipData.city)
+      this.miasto = ipData.city
         fetch(this.weatherUrl+ipData.city+this.weatherApiKey)
         .then((response) => response.json())
-        .then((weatherData) => this.setState(weatherData))
+        .then((weatherData) => this.setState(weatherData))}
       )
   }
 
@@ -142,7 +144,7 @@ class Weather extends Component {
             this.state.message
               ?
               <div style={{display:'flex',textAlign:'center',justifyContent:'center',flexDirection: 'column'}}>
-                <span style={{display: 'inline', margin:'2px'}}>{this.state.message}</span>
+                <span style={{display: 'inline', margin:'2px'}}>{this.state.message} ({this.miasto})</span>
               </div>
               :
               <div style={{display:'flex',textAlign:'center',justifyContent:'center',flexDirection: 'column'}}>
