@@ -1,6 +1,7 @@
-import React, {Component} from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, {Component} from 'react'
+import logo from './logo.svg'
+import './App.css'
+import ReactDOM from 'react-dom'
 const headerStyle = {
   borderBottom: '1px solid black',
   height: '10%',
@@ -24,41 +25,86 @@ const containerStyle = {
   alignItems: 'center',
 }
 const clothesData = [
-  {cloth:'warmHat',minTemp:'-infinity',maxTemp:'15'},
-  {cloth:'winterJacket',minTemp:'-infinity',maxTemp:'10'},
-  {cloth:'thickGloves',minTemp:'-infinity',maxTemp:'10'},
-  {cloth:'warmPants',minTemp:'-infinity',maxTemp:'10'},
-  {cloth:'scarf',minTemp:'-infinity',maxTemp:'10'},
-  {cloth:'sweater',minTemp:'-infinity',maxTemp:'10'},
-  {cloth:'warmSocks',minTemp:'-infinity',maxTemp:'10'},
-  {cloth:'winterShoes',minTemp:'-infinity',maxTemp:'10'},
-  {cloth:'cap',minTemp:'16',maxTemp:'infinity'},
+  {cloth:'warmHat',minTemp:'-20',maxTemp:'15'},
+  {cloth:'winterJacket',minTemp:'-20',maxTemp:'10'},
+  {cloth:'thickGloves',minTemp:'-20',maxTemp:'10'},
+  {cloth:'warmPants',minTemp:'-20',maxTemp:'10'},
+  {cloth:'scarf',minTemp:'-20',maxTemp:'10'},
+  {cloth:'sweater',minTemp:'-20',maxTemp:'10'},
+  {cloth:'warmSocks',minTemp:'-20',maxTemp:'10'},
+  {cloth:'winterShoes',minTemp:'-20',maxTemp:'10'},
+  {cloth:'cap',minTemp:'16',maxTemp:'50'},
   {cloth:'springJacket',minTemp:'11',maxTemp:'15'},
   {cloth:'jeans',minTemp:'11',maxTemp:'24'},
   {cloth:'hoodie',minTemp:'11',maxTemp:'20'},
-  {cloth:'boatSocks',minTemp:'11',maxTemp:'infinity'},
+  {cloth:'boatSocks',minTemp:'11',maxTemp:'50'},
   {cloth:'regularShoes',minTemp:'11',maxTemp:'20'},
-  {cloth:'tShirt',minTemp:'21',maxTemp:'infinity'},
-  {cloth:'shorts',minTemp:'21',maxTemp:'infinity'},
-  {cloth:'sandals',minTemp:'21',maxTemp:'infinity'},
-  {cloth:'raincoat',minTemp:'-infinity',maxTemp:'infinity',rain:'1'},
-  {cloth:'wellingtons',minTemp:'-infinity',maxTemp:'infinity',rain:'1'},
-  {cloth:'umbrella',minTemp:'-infinity',maxTemp:'infinity',rain:'1'}
+  {cloth:'tShirt',minTemp:'21',maxTemp:'50'},
+  {cloth:'shorts',minTemp:'21',maxTemp:'50'},
+  {cloth:'sandals',minTemp:'21',maxTemp:'50'},
+  {cloth:'raincoat',minTemp:'-20',maxTemp:'50',rain:'1'},
+  {cloth:'wellingtons',minTemp:'-20',maxTemp:'50',rain:'1'},
+  {cloth:'umbrella',minTemp:'-20',maxTemp:'50',rain:'1'}
 ]
 
 class Container extends Component {
   constructor() {
   super()
-  this.state = {data: ''}
+  this.state = {}
+  this.url = 'https://ipapi.co/json'
+  this.weatherUrl = 'https://api.openweathermap.org/data/2.5/weather?'
+  this.weatherApiKey = 'APPID=9fc75b96c3e130cffdee8b45127936db&units=metric'
+  this.outfitData = []
   }
+
+  componentDidMount() {
+        "geolocation" in navigator
+        ?
+        navigator.geolocation.getCurrentPosition((position) => {
+          this.lat = position.coords.latitude
+          this.lon = position.coords.longitude
+          fetch(this.weatherUrl+'lat='+this.lat+'&lon='+this.lon+'&'+this.weatherApiKey)
+          .then((response) => response.json())
+          .then((weatherData) => {
+            
+            this.outfitData = clothesData.filter(function(object) {
+              if (weatherData.weather.main != 'rain' &&
+              weatherData.weather.main != 'thunderstorm' &&
+              weatherData.weather.main != 'shower rain')
+              {
+                if (weatherData.main.temp_min>=object.minTemp && object.rain!='1')
+                {
+                  if (weatherData.main.temp_max<=object.maxTemp){
+                    return object.cloth
+                  }
+                }
+              }else{
+                if (weatherData.main.temp_min>=object.minTemp)
+                {
+                  if (weatherData.main.temp_max<=object.maxTemp){
+                    return object.cloth
+                  }
+                }
+              }
+            })
+
+            console.log(this.outfitData)
+            this.setState(weatherData)
+          })
+        }, (error) => this.setState({error: error}))
+        :
+        this.setState({message: "Your browser doesn't support Geolocation_API."})
+  }
+
+
 
   render() {
     return (
       <div className="container" style={containerStyle}>
           <InputLocation/>
-          <Weather/>
-          <OutfitPicture/>
-          <OutfitDescription/>
+          <Weather weatherData={this.state}/>
+          <OutfitPicture weatherData={this.state}/>
+          <OutfitDescription weatherData={this.state}/>
       </div>
     )
   }
@@ -105,60 +151,43 @@ class InputLocation extends Component {
 class Weather extends Component {
   constructor(props){
     super(props)
-    this.state = {}
-    this.url = 'https://ipapi.co/json'
-    this.weatherUrl = 'https://api.openweathermap.org/data/2.5/weather?'
-    this.weatherApiKey = 'APPID=9fc75b96c3e130cffdee8b45127936db&units=metric'
-  }
-
-  componentDidMount() {
-        "geolocation" in navigator
-        ?
-        navigator.geolocation.getCurrentPosition((position) => {
-          this.lat = position.coords.latitude
-          this.lon = position.coords.longitude
-          fetch(this.weatherUrl+'lat='+this.lat+'&lon='+this.lon+'&'+this.weatherApiKey)
-          .then((response) => response.json())
-          .then((weatherData) => this.setState(weatherData))
-        }, (error) => this.setState({error: error}))
-        :
-        this.setState({message: "Your browser doesn't support Geolocation_API."})
   }
 
   render() {
     return (
       <Card cardName='Weather info' cardContent={
-            this.state.weather
+            this.props.weatherData.weather
             ?
             <React.Fragment>
               <span style={{lineHeight: '55px', margin: '5px'}}>Weather icon: </span>
-              <img src={'https://openweathermap.org/img/w/'+this.state.weather[0].icon+'.png'}
+              <img src={'https://openweathermap.org/img/w/'+this.props.weatherData.weather[0].icon+'.png'}
               alt="" style={{ right: '0', top: '0',width:'35px'}}/>
               <ul style={{listStyleType: 'none', margin: '5px'}}>
-                <li><span>City: </span>{this.state.name}</li>
-                <li><span>Forecast: </span>{this.state.weather[0].description}</li>
-                <li><span>Main: </span>{this.state.weather[0].main}</li>
-                <li><span>Temperature: </span>{this.state.main.temp}<span>°C</span></li>
-                <li><span>Min temperature: </span>{this.state.main.temp_min}<span>°C</span></li>
-                <li><span>Max temperature: </span>{this.state.main.temp_max}<span>°C</span></li>
-                <li><span>Humidity: </span>{this.state.main.humidity}<span>%</span></li>
-                <li><span>Pressure: </span>{this.state.main.pressure}<span>hPa</span></li>
+                <li><span>City: </span>{this.props.weatherData.name}</li>
+                <li><span>Forecast: </span>{this.props.weatherData.weather[0].description}</li>
+                <li><span>Main: </span>{this.props.weatherData.weather[0].main}</li>
+                <li><span>Temperature: </span>{this.props.weatherData.main.temp}<span>°C</span></li>
+                <li><span>Min temperature: </span>{this.props.weatherData.main.temp_min}<span>°C</span></li>
+                <li><span>Max temperature: </span>{this.props.weatherData.main.temp_max}<span>°C</span></li>
+                <li><span>Humidity: </span>{this.props.weatherData.main.humidity}<span>%</span></li>
+                <li><span>Pressure: </span>{this.props.weatherData.main.pressure}<span>hPa</span></li>
               </ul>
             </React.Fragment>
             :
-            this.state.message
+            this.props.weatherData.message
               ?
               <div style={{display:'flex',textAlign:'left',justifyContent:'center',flexDirection: 'column'}}>
-                <span style={{display: 'inline', margin:'2px'}}>{this.state.message}</span>
+                <span style={{display: 'inline', margin:'2px'}}>{this.props.weatherData.message}</span>
                   <span style={{display: 'inline', margin:'2px'}}>You can type your city by hand.</span>
               </div>
               :
-              this.state.error
+              this.props.weatherData.error
               ?
               <div style={{display:'flex',textAlign:'left',justifyContent:'center',flexDirection: 'column'}}>
                 <span style={{display: 'inline', margin:'2px'}}>Error info</span>
-                <span style={{display: 'inline', margin:'2px'}}>code: "{this.state.error.code}"</span>
-                <span style={{display: 'inline', margin:'2px'}}>message: "{this.state.error.message}"</span>
+                <span style={{display: 'inline', margin:'2px'}}>code: "{this.props.weatherData.error.code}"</span>
+                <span style={{display: 'inline', margin:'2px'}}>message: "{this.props.weatherData.error.message}"</span>
+                <span style={{display: 'inline', margin:'2px'}}>&nbsp;</span>
                 <span style={{display: 'inline', margin:'2px'}}>How to resolve?</span>
                 <span style={{display: 'inline', margin:'2px'}}>1. Check if your url begin with HTTPS.</span>
                 <span style={{display: 'inline', margin:'2px'}}>2. Turn on GPS on your mobile device.</span>
@@ -173,10 +202,21 @@ class Weather extends Component {
 }
 
 class OutfitPicture extends Component {
+  constructor(props){
+    super(props)
+  }
+
+  componentDidMount() {
+  }
+
   render() {
     return (
       <Card cardName='Clothing picture'
-         cardContent={<img src = "" alt = {this.props.image} />}
+         cardContent={
+           <React.Fragment>
+
+           </React.Fragment>
+         }
       />
     )
   }
@@ -186,7 +226,8 @@ class OutfitDescription extends Component {
   render() {
     return (
       <Card cardName='Description' cardContent=
-               {<ul style={{listStyleType: 'none'}}>
+        {
+                 <ul style={{listStyleType: 'none'}}>
                    <li>1</li>
                    <li>2</li>
                    <li>3</li>
