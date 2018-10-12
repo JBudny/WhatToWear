@@ -35,13 +35,13 @@ const clothesData = [
   {cloth:'winterShoes',minTemp:'-20',maxTemp:'10'},
   {cloth:'cap',minTemp:'16',maxTemp:'50'},
   {cloth:'springJacket',minTemp:'11',maxTemp:'15'},
-  {cloth:'jeans',minTemp:'11',maxTemp:'24'},
-  {cloth:'hoodie',minTemp:'11',maxTemp:'20'},
+  {cloth:'jeans',minTemp:'11',maxTemp:'23'},
+  {cloth:'hoodie',minTemp:'11',maxTemp:'23'},
   {cloth:'boatSocks',minTemp:'11',maxTemp:'50'},
-  {cloth:'regularShoes',minTemp:'11',maxTemp:'20'},
-  {cloth:'tShirt',minTemp:'21',maxTemp:'50'},
-  {cloth:'shorts',minTemp:'21',maxTemp:'50'},
-  {cloth:'sandals',minTemp:'21',maxTemp:'50'},
+  {cloth:'regularShoes',minTemp:'11',maxTemp:'23'},
+  {cloth:'tShirt',minTemp:'24',maxTemp:'50'},
+  {cloth:'shorts',minTemp:'24',maxTemp:'50'},
+  {cloth:'sandals',minTemp:'24',maxTemp:'50'},
   {cloth:'raincoat',minTemp:'-20',maxTemp:'50',rain:'1'},
   {cloth:'wellingtons',minTemp:'-20',maxTemp:'50',rain:'1'},
   {cloth:'umbrella',minTemp:'-20',maxTemp:'50',rain:'1'}
@@ -66,7 +66,7 @@ class Container extends Component {
           fetch(this.weatherUrl+'lat='+this.lat+'&lon='+this.lon+'&'+this.weatherApiKey)
           .then((response) => response.json())
           .then((weatherData) => {
-            
+
             this.outfitData = clothesData.filter(function(object) {
               if (weatherData.weather.main != 'rain' &&
               weatherData.weather.main != 'thunderstorm' &&
@@ -87,8 +87,6 @@ class Container extends Component {
                 }
               }
             })
-
-            console.log(this.outfitData)
             this.setState(weatherData)
           })
         }, (error) => this.setState({error: error}))
@@ -101,10 +99,14 @@ class Container extends Component {
   render() {
     return (
       <div className="container" style={containerStyle}>
-          <InputLocation/>
-          <Weather weatherData={this.state}/>
-          <OutfitPicture weatherData={this.state}/>
-          <OutfitDescription weatherData={this.state}/>
+        <InputLocation/>
+        <Weather weatherData={this.state}/>
+        <OutfitPicture weatherData={this.state}/>
+        {
+          this.outfitData.length>1
+          ? <OutfitRecommendation outfitData={this.outfitData}/>
+          : null
+        }
       </div>
     )
   }
@@ -222,17 +224,22 @@ class OutfitPicture extends Component {
   }
 }
 
-class OutfitDescription extends Component {
+class OutfitRecommendation extends Component {
+  constructor(props){
+    super(props)
+  }
+
   render() {
     return (
-      <Card cardName='Description' cardContent=
-        {
-                 <ul style={{listStyleType: 'none'}}>
-                   <li>1</li>
-                   <li>2</li>
-                   <li>3</li>
-                   <li>4</li>
-                 </ul>}/>
+      <Card cardName='What to wear?' cardContent={
+        <ol style={{marginLeft: '20px', marginTop:'10px'}}>
+          {
+            this.props.outfitData.map(data => {
+            return <li>{data.cloth}</li>
+            })
+          }
+        </ol>
+      }/>
     )}
 }
 
