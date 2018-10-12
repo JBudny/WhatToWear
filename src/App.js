@@ -25,26 +25,26 @@ const containerStyle = {
   alignItems: 'center',
 }
 const clothesData = [
-  {cloth:'warmHat',minTemp:'-20',maxTemp:'15'},
-  {cloth:'winterJacket',minTemp:'-20',maxTemp:'10'},
-  {cloth:'thickGloves',minTemp:'-20',maxTemp:'10'},
-  {cloth:'warmPants',minTemp:'-20',maxTemp:'10'},
-  {cloth:'scarf',minTemp:'-20',maxTemp:'10'},
-  {cloth:'sweater',minTemp:'-20',maxTemp:'10'},
-  {cloth:'warmSocks',minTemp:'-20',maxTemp:'10'},
-  {cloth:'winterShoes',minTemp:'-20',maxTemp:'10'},
-  {cloth:'cap',minTemp:'16',maxTemp:'50'},
-  {cloth:'springJacket',minTemp:'11',maxTemp:'15'},
-  {cloth:'jeans',minTemp:'11',maxTemp:'23'},
-  {cloth:'hoodie',minTemp:'11',maxTemp:'23'},
-  {cloth:'boatSocks',minTemp:'11',maxTemp:'50'},
-  {cloth:'regularShoes',minTemp:'11',maxTemp:'23'},
-  {cloth:'tShirt',minTemp:'24',maxTemp:'50'},
-  {cloth:'shorts',minTemp:'24',maxTemp:'50'},
-  {cloth:'sandals',minTemp:'24',maxTemp:'50'},
-  {cloth:'raincoat',minTemp:'-20',maxTemp:'50',rain:'1'},
-  {cloth:'wellingtons',minTemp:'-20',maxTemp:'50',rain:'1'},
-  {cloth:'umbrella',minTemp:'-20',maxTemp:'50',rain:'1'}
+  {cloth:'warmHat',minTemp:'-20',maxTemp:'8',description:'Winter hat'},
+  {cloth:'winterJacket',minTemp:'-20',maxTemp:'8',description:'Winter jacket'},
+  {cloth:'thickGloves',minTemp:'-20',maxTemp:'5',description:'Winter gloves'},
+  {cloth:'warmPants',minTemp:'-20',maxTemp:'8',description:'Winter pants'},
+  {cloth:'scarf',minTemp:'-20',maxTemp:'10',description:'Scarf'},
+  {cloth:'sweater',minTemp:'-20',maxTemp:'10',description:'Sweater'},
+  {cloth:'warmSocks',minTemp:'-20',maxTemp:'10',description:'Warm socks'},
+  {cloth:'winterShoes',minTemp:'-20',maxTemp:'10',description:'Winter shoes'},
+  {cloth:'cap',minTemp:'16',maxTemp:'50',description:'Cap'},
+  {cloth:'springJacket',minTemp:'9',maxTemp:'15',description:'Sprng jacket'},
+  {cloth:'jeans',minTemp:'9',maxTemp:'23',description:'Jeans'},
+  {cloth:'hoodie',minTemp:'11',maxTemp:'23',description:'Hoodie'},
+  {cloth:'boatSocks',minTemp:'11',maxTemp:'50',description:'Boat socks'},
+  {cloth:'regularShoes',minTemp:'11',maxTemp:'23',description:'Regular shoes'},
+  {cloth:'tShirt',minTemp:'24',maxTemp:'50',description:'T-shirt'},
+  {cloth:'shorts',minTemp:'24',maxTemp:'50',description:'Shorts'},
+  {cloth:'sandals',minTemp:'24',maxTemp:'50',description:'Sandals'},
+  {cloth:'raincoat',minTemp:'-20',maxTemp:'50',rain:'1',description:'Raincoat'},
+  {cloth:'wellingtons',minTemp:'-20',maxTemp:'50',rain:'1',description:'Wellingtons'},
+  {cloth:'umbrella',minTemp:'-20',maxTemp:'50',rain:'1',description:'Umbrella'}
 ]
 
 class Container extends Component {
@@ -235,7 +235,7 @@ class OutfitRecommendation extends Component {
         <ol style={{marginLeft: '20px', marginTop:'10px'}}>
           {
             this.props.outfitData.map(data => {
-            return <li>{data.cloth}</li>
+            return <li>{data.description}</li>
             })
           }
         </ol>
