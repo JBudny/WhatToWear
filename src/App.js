@@ -65,33 +65,43 @@ class Container extends Component {
           this.lon = position.coords.longitude
           fetch(this.weatherUrl+'lat='+this.lat+'&lon='+this.lon+'&'+this.weatherApiKey)
           .then((response) => response.json())
-          .then((weatherData) => {
-
-            this.outfitData = clothesData.filter(function(object) {
-              if (weatherData.weather.main != 'rain' &&
-              weatherData.weather.main != 'thunderstorm' &&
-              weatherData.weather.main != 'shower rain')
-              {
-                if (weatherData.main.temp_min>=object.minTemp && object.rain!='1')
-                {
-                  if (weatherData.main.temp_max<=object.maxTemp){
-                    return object.cloth
-                  }
-                }
-              }else{
-                if (weatherData.main.temp_min>=object.minTemp)
-                {
-                  if (weatherData.main.temp_max<=object.maxTemp){
-                    return object.cloth
-                  }
-                }
-              }
-            })
-            this.setState(weatherData)
-          })
-        }, (error) => this.setState({error: error}))
+          .then((weatherData) => getOutfitData(weatherData))
+        }, () => {
+          fetch('https://ipapi.co/json/')
+          .then((response) => response.json())
+          .then((ipData) => {
+            fetch('https://api.openweathermap.org/data/2.5/weather?q='+ipData.city+'&'+this.weatherApiKey)
+            .then((response) => response.json())
+            .then((weatherData) => getOutfitData(weatherData))
+          })}
+      /*(error) => this.setState({error: error})*/)
         :
         this.setState({message: "Your browser doesn't support Geolocation_API."})
+
+let getOutfitData = (weatherData) => {
+    this.outfitData = clothesData.filter(function(object) {
+      if (weatherData.weather.main != 'rain' &&
+      weatherData.weather.main != 'thunderstorm' &&
+      weatherData.weather.main != 'shower rain')
+      {
+        if (weatherData.main.temp_min>=object.minTemp && object.rain!='1')
+        {
+          if (weatherData.main.temp_max<=object.maxTemp){
+            return object.cloth
+          }
+        }
+      }else{
+        if (weatherData.main.temp_min>=object.minTemp)
+        {
+          if (weatherData.main.temp_max<=object.maxTemp){
+            return object.cloth
+          }
+        }
+      }
+    })
+    this.setState(weatherData)
+}
+
   }
 
 
