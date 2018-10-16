@@ -34,7 +34,7 @@ const clothesData = [
   {cloth:'warmSocks',minTemp:'-20',maxTemp:'10',description:'Warm socks'},
   {cloth:'winterShoes',minTemp:'-20',maxTemp:'10',description:'Winter shoes'},
   {cloth:'cap',minTemp:'16',maxTemp:'50',description:'Cap'},
-  {cloth:'springJacket',minTemp:'9',maxTemp:'15',description:'Sprng jacket'},
+  {cloth:'springJacket',minTemp:'9',maxTemp:'15',description:'Spring jacket'},
   {cloth:'jeans',minTemp:'9',maxTemp:'23',description:'Jeans'},
   {cloth:'hoodie',minTemp:'11',maxTemp:'23',description:'Hoodie'},
   {cloth:'boatSocks',minTemp:'11',maxTemp:'50',description:'Boat socks'},
@@ -90,14 +90,14 @@ if(weatherData.weather){
         if (weatherData.weather.main != 'rain' &&
         weatherData.weather.main != 'thunderstorm' &&
         weatherData.weather.main != 'shower rain') {
-          if (weatherData.main.temp_min >= object.minTemp && object.rain != '1') {
-            if (weatherData.main.temp_max <= object.maxTemp) {
+          if (weatherData.main.temp >= object.minTemp && object.rain != '1') {
+            if (weatherData.main.temp <= object.maxTemp) {
               return object.cloth
             }
           }
         } else {
-          if (weatherData.main.temp_min >= object.minTemp) {
-            if (weatherData.main.temp_max <= object.maxTemp) {
+          if (weatherData.main.temp >= object.minTemp) {
+            if (weatherData.main.temp <= object.maxTemp) {
               return object.cloth
             }
           }
@@ -106,8 +106,6 @@ if(weatherData.weather){
     })
     this.setState(weatherData)
   }
-
-
 
 render() {
   return (
@@ -197,16 +195,12 @@ render() {
               <div style={{display: 'flex',textAlign: 'left',justifyContent: 'center',flexDirection: 'column'}}>
                 <span style={{display: 'inline',margin: '2px', color:'red'}}>{this.props.weatherData.error.message}. The weather is based on your IP and can be inacurate.</span>
                 <span style={{display: 'inline',margin: '2px'}}>&nbsp;</span>
-                {/* <span style={{display: 'inline',margin: '2px'}}>How to resolve?</span>
-                  <span style={{display: 'inline',margin: '2px'}}>1. Check if your url begin with HTTPS.</span>
-                  <span style={{display: 'inline',margin: '2px'}}>2. Turn on GPS on your mobile device.</span>
-                <span style={{display: 'inline',margin: '2px'}}>3. Allow browser to get your location.</span> */}
               </div>
             : null}
         </React.Fragment>
         :
         <div style={{display: 'flex',textAlign: 'center',justifyContent: 'center',flexDirection: 'column'}}>
-          <span style={{display: 'inline',margin: '2px'}}>Can't get weather data. You cen type your city by hand.</span>
+          <span style={{display: 'inline',margin: '2px'}}>Can't get weather data. You can type your city by hand.</span>
         </div>}/>)
 }
 }
