@@ -62,11 +62,11 @@ class Container extends Component {
       navigator.geolocation.getCurrentPosition((position) => {
         this.lat = position.coords.latitude
         this.lon = position.coords.longitude
-        this.getWeatherToCoords(this.lat, this.lon)
-      }, (error) => this.getWeatherToIP(error))
+        this.getWeatherByCoords(this.lat, this.lon)
+      }, (error) => this.getWeatherByIP(error))
     }else {
       this.error = {message: "Your browser doesn't support Geolocation_API"}
-      this.getWeatherToIP(this.error)}
+      this.getWeatherByIP(this.error)}
     }
 
 getWeatherByCoords = (lat, lon) => {
@@ -84,7 +84,7 @@ getWeatherByCoords = (lat, lon) => {
       .then((weatherData) => this.getOutfitData(weatherData))
       .then(() => {
         this.errorNotification = {message:''}
-        this.notification.message=error.message + '. The weather is based on your IP and can be inacurate.'
+        this.errorNotification.message=error.message + '. The weather is based on your IP and can be inacurate.'
         this.setState({error: this.errorNotification})})
     })
   }
