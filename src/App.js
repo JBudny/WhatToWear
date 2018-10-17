@@ -69,13 +69,13 @@ class Container extends Component {
       this.getWeatherToIP(this.error)}
     }
 
-getWeatherToCoords = (lat, lon) => {
+getWeatherByCoords = (lat, lon) => {
   fetch(this.weatherUrl + 'lat=' + lat + '&lon=' + lon + '&' + this.weatherApiKey)
   .then((response) => response.json())
   .then((weatherData) => this.getOutfitData(weatherData))
 }
 
-  getWeatherToIP = (error) => {
+  getWeatherByIP = (error) => {
     fetch('https://ipapi.co/json/')
     .then((response) => response.json())
     .then((ipData) => {
@@ -83,10 +83,9 @@ getWeatherToCoords = (lat, lon) => {
       .then((response) => response.json())
       .then((weatherData) => this.getOutfitData(weatherData))
       .then(() => {
-        this.testowo = {message:''}
-        this.testowo.message=error.message + '. The weather is based on your IP and can be inacurate.'
-        console.log(error)
-        this.setState({error: this.testowo})})
+        this.errorNotification = {message:''}
+        this.notification.message=error.message + '. The weather is based on your IP and can be inacurate.'
+        this.setState({error: this.errorNotification})})
     })
   }
 
