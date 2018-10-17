@@ -62,17 +62,18 @@ class Container extends Component {
       navigator.geolocation.getCurrentPosition((position) => {
         this.lat = position.coords.latitude
         this.lon = position.coords.longitude
-        fetch(this.weatherUrl + 'lat=' + this.lat + '&lon=' + this.lon + '&' + this.weatherApiKey)
-        .then((response) => response.json())
-        .then((weatherData) => {
-if(weatherData.weather){
-          this.getOutfitData(weatherData)}})
-      }, (error) => {
-        this.getWeatherToIP(error)})
+        this.getWeatherToCoords(this.lat, this.lon)
+      }, (error) => this.getWeatherToIP(error))
     }else {
       this.error = {message: "Your browser doesn't support Geolocation_API"}
       this.getWeatherToIP(this.error)}
     }
+
+getWeatherToCoords = (lat, lon) => {
+  fetch(this.weatherUrl + 'lat=' + lat + '&lon=' + lon + '&' + this.weatherApiKey)
+  .then((response) => response.json())
+  .then((weatherData) => this.getOutfitData(weatherData))
+}
 
   getWeatherToIP = (error) => {
     fetch('https://ipapi.co/json/')
@@ -81,7 +82,11 @@ if(weatherData.weather){
       fetch('https://api.openweathermap.org/data/2.5/weather?q=' + ipData.city + '&' + this.weatherApiKey)
       .then((response) => response.json())
       .then((weatherData) => this.getOutfitData(weatherData))
-      .then(() => this.setState({error: error}))
+      .then(() => {
+        this.testowo = {message:''}
+        this.testowo.message=error.message + '. The weather is based on your IP and can be inacurate.'
+        console.log(error)
+        this.setState({error: this.testowo})})
     })
   }
 
@@ -194,7 +199,7 @@ render() {
           {this.props.weatherData.error
             ?
               <div style={{display: 'flex',textAlign: 'left',justifyContent: 'center',flexDirection: 'column'}}>
-                <span style={{display: 'inline',margin: '2px', color:'red'}}>{this.props.weatherData.error.message}. The weather is based on your IP and can be inacurate.</span>
+                <span style={{display: 'inline',margin: '2px', color:'red'}}>{this.props.weatherData.error.message}</span>
                 <span style={{display: 'inline',margin: '2px'}}>&nbsp;</span>
               </div>
             : null}
