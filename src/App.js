@@ -67,10 +67,11 @@ class Container extends Component {
         .then((weatherData) => {
 if(weatherData.weather){
           this.getOutfitData(weatherData)}})
-      }, (error) => this.getWeatherToIP(error))
-    } else
+      }, (error) => {
+        this.getWeatherToIP(error)})
+    }else {
       this.error = {message: "Your browser doesn't support Geolocation_API"}
-      this.getWeatherToIP(this.error)
+      this.getWeatherToIP(this.error)}
     }
 
   getWeatherToIP = (error) => {
