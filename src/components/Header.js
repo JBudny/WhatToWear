@@ -1,5 +1,5 @@
 // module "Header.js"
-import React, {Component} from 'react'
+import React from 'react'
 
 const headerStyle = {
   borderBottom: '1px solid black',
@@ -9,15 +9,13 @@ const headerStyle = {
   justifyContent: 'center'
 }
 
-class Header extends Component {
-render() {
+const Header = ({heading}) => {
   return (
     <div className="Header" style={headerStyle}>
       <h2 style={{
         margin: 'auto'
-      }}>{this.props.heading}</h2>
+      }}>{heading}</h2>
     </div>)
-}
 }
 
 export default Header;

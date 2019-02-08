@@ -1,8 +1,7 @@
 // module "InputLocation.js"
-import React, {Component} from 'react'
+import React from 'react'
 
-class InputLocation extends Component {
-render() {
+const InputLocation = () => {
   return (
     <div style={{
       width: '100%',
@@ -12,7 +11,6 @@ render() {
       <h2>Type your city</h2>
       <input type="text"/>
     </div>)
-}
 }
 
 export default InputLocation;
