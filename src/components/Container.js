@@ -47,7 +47,7 @@ class Container extends Component {
   }
 
   componentDidMount() {
-    if ("geoloscation" in navigator) {
+    if ("geolocation" in navigator) {
       navigator.geolocation.getCurrentPosition((position) => {
         const lat = position.coords.latitude
         const lon = position.coords.longitude
@@ -63,7 +63,14 @@ getWeatherByCoords = (lat, lon) => {
   fetch(`${this.weatherUrl}lat=${lat}&lon=${lon}&${this.weatherApiKey}`)
   .then((weatherData) => weatherData.json())
   .then((weatherData) => this.getOutfitData(weatherData))
-  .catch((error) => this.setState({error}))
+  .catch((error) => {
+    error = {
+      error,
+      message:`${error.message} weather data.`,
+      stack:error.stack
+    }
+    this.setState({error})
+  })
 }
 
   getIpData = (notification) => {
@@ -75,8 +82,8 @@ getWeatherByCoords = (lat, lon) => {
     .catch((error) => {
       error = {
         error,
-        message:error.message+' your ip data. You can try to type your city by hand.',
-        stack:error.stack,notification
+        message:`${error.message} your ip data. You can try to type your city by hand.`,
+        stack:error.stack
       }
       this.setState({error})
     })
@@ -90,8 +97,8 @@ getWeatherByCoords = (lat, lon) => {
     .catch((error) => {
       error = {
         error,
-        message:error.message+' weather data.',
-        stack:error.stack,notification
+        message:`${error.message} weather data.`,
+        stack:error.stack
       }
       this.setState({error})
     })
@@ -119,15 +126,19 @@ getWeatherByCoords = (lat, lon) => {
       }
     return 0
     })
-    this.setState(weatherData)
+    this.setState({weatherData})
   }
 
 render() {
+  const {weatherData, error, notification} = this.state
   return (
     <div className="container" style={containerStyle}>
       <InputLocation/>
-      <Weather weatherData={this.state}/>
-      <OutfitPicture weatherData={this.state}/> {
+      <Weather weatherData={weatherData}
+               error={error}
+               notification={notification}/>
+      <OutfitPicture/>
+      {
         this.outfitData.length > 1
           ? <OutfitRecommendation outfitData={this.outfitData}/>
           : null

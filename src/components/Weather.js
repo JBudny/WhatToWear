@@ -2,8 +2,9 @@
 import React, {Fragment} from 'react'
 import Card from './Card'
 
-const Weather = ({weatherData}) => {
-const render = () => (
+const Weather = (props)=> {
+  const {weatherData, notification, error} = props
+const renderWeather = () => (
   <Fragment>
     <span style={{lineHeight: '55px',margin: '5px'}}>Weather icon:</span>
     <img src={`https://openweathermap.org/img/w/${weatherData.weather[0].icon}.png`} alt="" style={{right: '0',top: '0',width: '35px'}}/>
@@ -18,25 +19,25 @@ const render = () => (
       <li><span>Pressure:</span>{weatherData.main.pressure}<span>hPa</span></li>
     </ul>
     {
-      weatherData.notification
+      notification
       ?
         <div style={{display: 'flex',textAlign: 'left',justifyContent: 'center',flexDirection: 'column'}}>
-          <span style={{display: 'inline',margin: '2px', color:'blue', fontSize:'0.82em'}}>INFO: {weatherData.notification}</span>
+          <span style={{display: 'inline',margin: '2px', color:'blue', fontSize:'0.82em'}}>INFO: {notification}</span>
         </div>
       : null
     }
   </Fragment>
 )
 
-const render1 = () => (
+const renderError = () => (
   <Fragment>
   {
-    weatherData.error
+    error
     ?
     <div style={{display: 'flex',textAlign: 'left',justifyContent: 'center',flexDirection: 'column'}}>
       <span style={{display: 'inline',margin: '2px', color:'red', fontSize:'0.82em'}}>CRITICAL ERROR</span>
-      <span style={{display: 'inline',margin: '2px', color:'red', fontSize:'0.82em'}}>MESSAGE: {weatherData.error.message}</span>
-      <span style={{display: 'inline',margin: '2px', color:'red', fontSize:'0.82em'}}>STACK: {weatherData.error.stack}</span>
+      <span style={{display: 'inline',margin: '2px', color:'red', fontSize:'0.82em'}}>MESSAGE: {error.message}</span>
+      <span style={{display: 'inline',margin: '2px', color:'red', fontSize:'0.82em'}}>STACK: {error.stack}</span>
     </div>
     :null
   }
@@ -45,11 +46,11 @@ const render1 = () => (
 
   return (
     <Card cardName='Weather info' cardContent={
-      weatherData.weather
+      weatherData
         ?
-        render(weatherData)
+        renderWeather(props)
         :
-        render1(weatherData)
+        renderError(props)
     }/>
   )
 }
