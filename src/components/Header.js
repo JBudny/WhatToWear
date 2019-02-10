@@ -2,19 +2,20 @@
 import React from 'react'
 
 const headerStyle = {
-  borderBottom: '1px solid black',
-  height: '10%',
-  textAlign: 'center',
-  display: 'flex',
-  justifyContent: 'center'
+    borderBottom: '1px solid black',
+    height: '10%',
+    textAlign: 'center',
+    display: 'flex',
+    justifyContent: 'center'
+}
+const h2Style = {
+     margin: 'auto'
 }
 
 const Header = ({heading}) => {
   return (
-    <div className="Header" style={headerStyle}>
-      <h2 style={{
-        margin: 'auto'
-      }}>{heading}</h2>
+    <div style={headerStyle}>
+      <h2 style={h2Style}>{heading}</h2>
     </div>)
 }
 

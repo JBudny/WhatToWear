@@ -1,0 +1,43 @@
+.Content > span {
+line-height: 55px;
+margin: 5px;
+}
+
+.Content > img {
+  right: 0;
+  top: 0;
+  width: 35px;
+}
+
+.Content > ul {
+list-style-type: none;
+margin: 5px;
+}
+
+.Content > div {
+display: flex;
+text-align: left;
+justify-content: center;
+flex-direction: column;
+}
+
+.Content > div > span {
+display: inline;
+margin: 2px;
+color: blue;
+font-size: 0.82em;
+}
+
+.Error {
+display: flex;
+text-align: left;
+justify-content: center;
+flex-direction: column;
+}
+
+.Content > .Error > span {
+display: inline;
+margin: 2px;
+color: red;
+font-size: 0.82em;
+}

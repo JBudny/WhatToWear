@@ -1,14 +1,15 @@
 // module "Weather.js"
 import React, {Fragment} from 'react'
 import Card from './Card'
+import './css/Weather.css'
 
 const Weather = (props)=> {
-  const {weatherData, notification, error} = props
+const {weatherData, notification, error} = props
 const renderWeather = () => (
   <Fragment>
-    <span style={{lineHeight: '55px',margin: '5px'}}>Weather icon:</span>
-    <img src={`https://openweathermap.org/img/w/${weatherData.weather[0].icon}.png`} alt="" style={{right: '0',top: '0',width: '35px'}}/>
-    <ul style={{listStyleType: 'none',margin: '5px'}}>
+    <span>Weather icon:</span>
+    <img src={`https://openweathermap.org/img/w/${weatherData.weather[0].icon}.png`} alt=""/>
+    <ul>
       <li><span>City:</span>{weatherData.name}</li>
       <li><span>Forecast:</span>{weatherData.weather[0].description}</li>
       <li><span>Main:</span>{weatherData.weather[0].main}</li>
@@ -21,8 +22,8 @@ const renderWeather = () => (
     {
       notification
       ?
-        <div style={{display: 'flex',textAlign: 'left',justifyContent: 'center',flexDirection: 'column'}}>
-          <span style={{display: 'inline',margin: '2px', color:'blue', fontSize:'0.82em'}}>INFO: {notification}</span>
+        <div>
+          <span>INFO: {notification}</span>
         </div>
       : null
     }
@@ -34,10 +35,10 @@ const renderError = () => (
   {
     error
     ?
-    <div style={{display: 'flex',textAlign: 'left',justifyContent: 'center',flexDirection: 'column'}}>
-      <span style={{display: 'inline',margin: '2px', color:'red', fontSize:'0.82em'}}>CRITICAL ERROR</span>
-      <span style={{display: 'inline',margin: '2px', color:'red', fontSize:'0.82em'}}>MESSAGE: {error.message}</span>
-      <span style={{display: 'inline',margin: '2px', color:'red', fontSize:'0.82em'}}>STACK: {error.stack}</span>
+    <div className="Error">
+      <span>CRITICAL ERROR</span>
+      <span>MESSAGE: {error.message}</span>
+      <span>STACK: {error.stack}</span>
     </div>
     :null
   }

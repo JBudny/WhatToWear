@@ -3,10 +3,7 @@ import React from 'react'
 
 const Content = ({content}) => {
   return (
-    <div className="Content" style={{
-      height: '90%',
-      width: '100%'
-    }}>
+    <div className="Content">
       {content}
     </div>)
 }

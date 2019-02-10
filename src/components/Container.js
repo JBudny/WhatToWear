@@ -6,11 +6,11 @@ import Weather from './Weather'
 import OutfitRecommendation from './OutfitRecommendation'
 
 const containerStyle = {
-  margin: '15px',
-  display: 'flex',
-  flexWrap: 'wrap',
-  justifyContent: 'center',
-  alignItems: 'center'
+      margin: '15px',
+      display: 'flex',
+      flexWrap: 'wrap',
+      justifyContent: 'center',
+      alignItems: 'center'
 }
 
 const clothesData = [
@@ -129,22 +129,22 @@ getWeatherByCoords = (lat, lon) => {
     this.setState({weatherData})
   }
 
-render() {
-  const {weatherData, error, notification} = this.state
-  return (
-    <div className="container" style={containerStyle}>
-      <InputLocation/>
-      <Weather weatherData={weatherData}
-               error={error}
-               notification={notification}/>
-      <OutfitPicture/>
-      {
-        this.outfitData.length > 1
-          ? <OutfitRecommendation outfitData={this.outfitData}/>
-          : null
-      }
-    </div>)
-}
+  render() {
+    const {weatherData, error, notification} = this.state
+    return (
+      <div style={containerStyle}>
+        <InputLocation/>
+        <Weather weatherData={weatherData}
+                error={error}
+                notification={notification}/>
+        <OutfitPicture/>
+        {
+          this.outfitData.length > 1
+            ? <OutfitRecommendation outfitData={this.outfitData}/>
+            : null
+        }
+      </div>)
+  }
 }
 
 export default Container
