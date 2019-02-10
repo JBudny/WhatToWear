@@ -1,4 +1,4 @@
-// "strings.js"
+// "stringsEN.js"
 
 const uiStrings = {
   appTitle:"Welcome to WhatToWear",
@@ -27,7 +27,8 @@ const uiStrings = {
     },
     info:{
       title:"INFO: ",
-      geo:"Your browser doesn't support Geolocation_API. The weather is based on your IP and can be inacurate."
+      support:"Your browser doesn't support Geolocation_API",
+      ipInfo: ". The weather is based on your IP and can be inacurate."
     },
     additions:{
        weatherData:" weather data.",

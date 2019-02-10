@@ -31,9 +31,11 @@ class Container extends Component {
         const lat = position.coords.latitude
         const lon = position.coords.longitude
         this.getWeatherByCoords(lat, lon)
-      }, (error) => this.getIpData(error))
+      }, (error) => {
+        const notification = error.message+info.ipInfo
+        this.getIpData(notification)})
     }else {
-      const notification = info.geo
+      const notification = info.support+info.ipInfo
       this.getIpData(notification)}
     }
 
@@ -75,7 +77,7 @@ getWeatherByCoords = (lat, lon) => {
     .catch((error) => {
       error = {
         error,
-        message:`${error.message+uiStrings.notifications.additions.weatherData}`,
+        message:`${error.message+additions.weatherData}`,
         stack:error.stack
       }
       this.setState({error})
