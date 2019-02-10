@@ -1,5 +1,6 @@
 // module "InputLocation.js"
 import React from 'react'
+import uiStrings from './data/stringsEN'
 
 const inputLocationStyle = {
     width: '100%',
@@ -10,7 +11,7 @@ const inputLocationStyle = {
 const InputLocation = () => {
   return (
     <div style={inputLocationStyle}>
-      <h2>Type your city</h2>
+      <h2>{uiStrings.inputTitle}</h2>
       <input type="text"/>
     </div>)
 }

@@ -1,10 +1,11 @@
 // module "OutfitPicture.js"
 import React, {Fragment} from 'react'
 import Card from './Card'
+import uiStrings from './data/stringsEN'
 
 const OutfitPicture =() => {
   return (
-    <Card cardName='Clothing picture'
+    <Card cardName={uiStrings.cardTitles.picture}
           cardContent=
           {
             <Fragment />
