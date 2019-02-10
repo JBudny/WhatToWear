@@ -1,18 +1,19 @@
 // module "InputLocation.js"
-import React, {Component} from 'react'
+import React from 'react'
+import uiStrings from './data/stringsEN'
 
-class InputLocation extends Component {
-render() {
+const inputLocationStyle = {
+    width: '100%',
+    textAlign: 'center',
+    margin: '15px'
+}
+
+const InputLocation = () => {
   return (
-    <div style={{
-      width: '100%',
-      textAlign: 'center',
-      margin: '15px'
-    }}>
-      <h2>Type your city</h2>
+    <div style={inputLocationStyle}>
+      <h2>{uiStrings.inputTitle}</h2>
       <input type="text"/>
     </div>)
-}
 }
 
 export default InputLocation;

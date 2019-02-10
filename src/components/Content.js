@@ -1,16 +1,11 @@
 // module "Content.js"
-import React, {Component} from 'react'
+import React from 'react'
 
-class Content extends Component {
-render() {
+const Content = ({content}) => {
   return (
-    <div className="Content" style={{
-      height: '90%',
-      width: '100%'
-    }}>
-      {this.props.content}
+    <div className="Content">
+      {content}
     </div>)
-}
 }
 
 export default Content;

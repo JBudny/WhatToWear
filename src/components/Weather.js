@@ -1,42 +1,63 @@
 // module "Weather.js"
-import React, {Component} from 'react'
+import React, {Fragment} from 'react'
 import Card from './Card'
+import './css/Weather.css'
+import uiStrings from './data/stringsEN'
 
-class Weather extends Component {
-constructor(props) {
-  super(props)
-}
+const Weather = (props) => {
+  const {weatherData, notification, error} = props
+  const {icon, city, forecast, main, temp, minTemp, maxTemp, humidity, pressure} = uiStrings.weatherParams
+  const {title, message, stack} = uiStrings.notifications.criticalError
 
-render() {
+  const renderWeather = () => (
+  <Fragment>
+    <span>{icon}</span>
+    <img src={`https://openweathermap.org/img/w/${weatherData.weather[0].icon}.png`} alt=""/>
+    <ul>
+      <li>{city}{weatherData.name}</li>
+      <li>{forecast}{weatherData.weather[0].description}</li>
+      <li>{main}{weatherData.weather[0].main}</li>
+      <li>{temp}{weatherData.main.temp}<span>°C</span></li>
+      <li>{minTemp}{weatherData.main.temp_min}<span>°C</span></li>
+      <li>{maxTemp}{weatherData.main.temp_max}<span>°C</span></li>
+      <li>{humidity}{weatherData.main.humidity}<span>%</span></li>
+      <li>{pressure}{weatherData.main.pressure}<span>hPa</span></li>
+    </ul>
+    {
+      notification
+      ?
+        <div>
+          <span>{uiStrings.notifications.info.title}{notification}</span>
+        </div>
+      : null
+    }
+  </Fragment>
+)
+
+const renderError = () => (
+  <Fragment>
+  {
+    error
+    ?
+    <div className="Error">
+      <span>{title}</span>
+      <span>{message}{error.message}</span>
+      <span>{stack}{error.stack}</span>
+    </div>
+    :null
+  }
+  </Fragment>
+)
+
   return (
-    <Card cardName='Weather info' cardContent={
-      this.props.weatherData.weather
-        ? <React.Fragment>
-          <span style={{lineHeight: '55px',margin: '5px'}}>Weather icon:</span>
-          <img src={'https://openweathermap.org/img/w/' + this.props.weatherData.weather[0].icon + '.png'} alt="" style={{right: '0',top: '0',width: '35px'}}/>
-          <ul style={{listStyleType: 'none',margin: '5px'}}>
-            <li><span>City:</span>{this.props.weatherData.name}</li>
-            <li><span>Forecast:</span>{this.props.weatherData.weather[0].description}</li>
-            <li><span>Main:</span>{this.props.weatherData.weather[0].main}</li>
-            <li><span>Temperature:</span>{this.props.weatherData.main.temp}<span>°C</span></li>
-            <li><span>Min temperature:</span>{this.props.weatherData.main.temp_min}<span>°C</span></li>
-            <li><span>Max temperature:</span>{this.props.weatherData.main.temp_max}<span>°C</span></li>
-            <li><span>Humidity:</span>{this.props.weatherData.main.humidity}<span>%</span></li>
-            <li><span>Pressure:</span>{this.props.weatherData.main.pressure}<span>hPa</span></li>
-          </ul>
-          {this.props.weatherData.error
-            ?
-              <div style={{display: 'flex',textAlign: 'left',justifyContent: 'center',flexDirection: 'column'}}>
-                <span style={{display: 'inline',margin: '2px', color:'red'}}>{this.props.weatherData.error.message}</span>
-                <span style={{display: 'inline',margin: '2px'}}>&nbsp;</span>
-              </div>
-            : null}
-        </React.Fragment>
+    <Card cardName={uiStrings.cardTitles.weather} cardContent={
+      weatherData
+        ?
+        renderWeather(props)
         :
-        <div style={{display: 'flex',textAlign: 'center',justifyContent: 'center',flexDirection: 'column'}}>
-          <span style={{display: 'inline',margin: '2px'}}>Can't get weather data. You can type your city by hand.</span>
-        </div>}/>)
-}
+        renderError(props)
+    }/>
+  )
 }
 
 export default Weather;

@@ -1,18 +1,16 @@
 // module "OutfitPicture.js"
-import React, {Component} from 'react'
+import React, {Fragment} from 'react'
 import Card from './Card'
+import uiStrings from './data/stringsEN'
 
-class OutfitPicture extends Component {
-constructor(props) {
-  super(props)
-}
-
-componentDidMount() {}
-
-render() {
+const OutfitPicture =() => {
   return (
-    <Card cardName='Clothing picture' cardContent={<React.Fragment > </React.Fragment>}/>)
-}
+    <Card cardName={uiStrings.cardTitles.picture}
+          cardContent=
+          {
+            <Fragment />
+          }/>
+  )
 }
 
 export default OutfitPicture;

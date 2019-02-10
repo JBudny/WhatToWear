@@ -1,22 +1,26 @@
 // module "OutfitRecommendation.js"
-import React, {Component} from 'react'
+import React from 'react'
 import Card from './Card'
+import uiStrings from './data/stringsEN'
 
-class OutfitRecommendation extends Component {
-constructor(props) {
-  super(props)
+const olStyle = {
+  marginLeft: '20px',
+  marginTop: '10px'
 }
 
-render() {
+const OutfitRecommendation = ({outfitData}) => {
   return (
-    <Card cardName='What to wear?' cardContent={<ol style = {{marginLeft: '20px', marginTop:'10px'}} > {
-      this.props.outfitData.map(data => {
-        return <li>{data.description}</li>
-      })
-    }
-    </ol>
-    }/>)
-}
+  <Card className="Card"
+        cardName={uiStrings.cardTitles.recommendation}
+        cardContent={
+          <ol style={olStyle}>
+            {outfitData.map(data => {
+              return <li>{data.description}</li>
+            })}
+        </ol>
+      }
+      />
+    )
 }
 
 export default OutfitRecommendation;
