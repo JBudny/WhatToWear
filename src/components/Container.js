@@ -57,7 +57,7 @@ getWeatherByCoords = (lat, lon) => {
     fetch(this.ipDataUrl)
     .then((ipData) => ipData.json())
     .then((ipData) => {
-      this.getWeatherByIp(ipData, notification)
+      this.getWeatherByCity(ipData.city, notification)
     })
     .catch((error) => {
       error = {
@@ -69,8 +69,8 @@ getWeatherByCoords = (lat, lon) => {
     })
   }
 
-  getWeatherByIp = (ipData, notification) => {
-    fetch(`${this.weatherUrl}q=${ipData.city}&${this.weatherApiKey}`)
+  getWeatherByCity = (city, notification) => {
+    fetch(`${this.weatherUrl}q=${city}&${this.weatherApiKey}`)
     .then((weatherData) => weatherData.json())
     .then((weatherData) => this.getOutfitData(weatherData))
     .then(() => this.setState({notification}))
@@ -104,7 +104,7 @@ getWeatherByCoords = (lat, lon) => {
                 }
               }
       }
-    return 0
+    return null
     })
     this.setState({weatherData})
   }
@@ -113,7 +113,7 @@ getWeatherByCoords = (lat, lon) => {
     const {weatherData, error, notification} = this.state
     return (
       <div style={containerStyle}>
-        <InputLocation/>
+        <InputLocation getWeatherByCity={this.getWeatherByCity}/>
         <Weather weatherData={weatherData}
                 error={error}
                 notification={notification}/>
