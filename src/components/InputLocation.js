@@ -11,7 +11,7 @@ const inputLocationStyle = {
 const InputLocation=(props)=>{
 
 const cityAutocomplete = (e) => {
-  fetch(`https://maps.googleapis.com/maps/api/place/autocomplete/json?input=locality=${e.currentTarget.value}&key=AIzaSyAds6n0BVkNWl3sIcPUs0B7SR47tfkPbek`)
+  fetch(`https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/autocomplete/json?input=locality=${e.currentTarget.value}&key=AIzaSyAds6n0BVkNWl3sIcPUs0B7SR47tfkPbek`)
   .then((predictions)=>predictions.json())
   .then((predictions)=>predictions.predictions.map((cities)=>cities.structured_formatting.main_text))
   .then((cities)=>{
