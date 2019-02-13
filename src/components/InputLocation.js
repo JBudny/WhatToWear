@@ -17,7 +17,7 @@ const InputLocation = props => {
       ${event.currentTarget.value}&key=AIzaSyAds6n0BVkNWl3sIcPUs0B7SR47tfkPbek`
       )
         .then(suggestions => suggestions.json())
-        .then(suggestions => suggestions.suggestions.map(cities => cities.description))
+        .then(suggestions => suggestions.predictions.map(cities => cities.description))
         .then(cities => {
           suggestionsList.innerHTML = '';
           cities.forEach(city => {
