@@ -11,6 +11,7 @@ const uiStrings = {
   weatherParams: {
     icon:"Weather icon:",
     city:"City: ",
+    country:"Country: ",
     forecast:"Forecast: ",
     main:"Main: ",
     temp:"Temperature: ",
