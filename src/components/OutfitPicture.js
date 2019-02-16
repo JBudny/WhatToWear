@@ -1,16 +1,17 @@
 // module "OutfitPicture.js"
-import React, {Fragment} from 'react'
-import Card from './Card'
-import uiStrings from './data/stringsEN'
+import React, { Fragment } from 'react';
+import { injectIntl } from 'react-intl';
+import Card from './Card';
 
-const OutfitPicture =() => {
+const OutfitPicture = props => {
+  const { intl } = props;
+  const { formatMessage } = intl;
   return (
-    <Card cardName={uiStrings.cardTitles.picture}
-          cardContent=
-          {
-            <Fragment />
-          }/>
-  )
-}
+    <Card
+      cardName={formatMessage({ id: 'cardTitles.picture' })}
+      cardContent={<Fragment />}
+    />
+  );
+};
 
-export default OutfitPicture;
+export default injectIntl(OutfitPicture);

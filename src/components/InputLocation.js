@@ -1,6 +1,6 @@
 // module "InputLocation.js"
 import React from 'react';
-import uiStrings from './data/stringsEN';
+import { FormattedMessage, injectIntl } from 'react-intl';
 
 const inputLocationStyle = {
   width: '100%',
@@ -9,6 +9,8 @@ const inputLocationStyle = {
 };
 
 const InputLocation = props => {
+  const { intl } = props
+  const { formatMessage } = intl;
   const suggestionsList = document.getElementById('suggestionsList');
   const cityListAutocomplete = event => {
     if (event.currentTarget.value.length >= 2) {
@@ -17,7 +19,9 @@ const InputLocation = props => {
       ${event.currentTarget.value}&key=AIzaSyAds6n0BVkNWl3sIcPUs0B7SR47tfkPbek`
       )
         .then(suggestions => suggestions.json())
-        .then(suggestions => suggestions.predictions.map(cities => cities.description))
+        .then(suggestions =>
+          suggestions.predictions.map(cities => cities.description)
+        )
         .then(cities => {
           suggestionsList.innerHTML = '';
           cities.forEach(city => {
@@ -26,7 +30,7 @@ const InputLocation = props => {
             suggestionsList.appendChild(result);
           });
         })
-        .catch(err => console.log(err));
+        .catch(err => console.error(err));
     }
   };
 
@@ -55,7 +59,13 @@ const InputLocation = props => {
 
   return (
     <label htmlFor="suggestions" style={inputLocationStyle}>
-      <h2>{uiStrings.inputTitle}</h2>
+      <h2>
+        <FormattedMessage
+          id="inputLocation.title"
+          defaultMessage="Type your city"
+          description="Text above input"
+        />
+      </h2>
       <input
         id="suggestions"
         type="text"
@@ -64,15 +74,19 @@ const InputLocation = props => {
         onInput={cityListAutocomplete}
         list="suggestionsList"
         autoComplete="off"
-        placeholder="e.g. Bangkok"
+        placeholder={formatMessage({ id: 'inputLocation.placeholder' })}
         onKeyUp={searchByEnterKey}
       />
       <datalist id="suggestionsList" />
       <button id="search" onClick={fireSearch} type="button">
-        Search
+        <FormattedMessage
+          id="searchButton"
+          defaultMessage="search"
+          description="Search button"
+        />
       </button>
     </label>
   );
 };
 
-export default InputLocation;
+export default injectIntl(InputLocation);

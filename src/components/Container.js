@@ -1,12 +1,12 @@
 // module "Container.js"
 import React, { Component } from 'react';
+import { injectIntl } from 'react-intl';
 import OutfitPicture from './OutfitPicture';
 import InputLocation from './InputLocation';
 import Weather from './Weather';
 import OutfitRecommendation from './OutfitRecommendation';
-import uiStrings from './data/stringsEN';
+import clothesData from './data/clothesData';
 
-const { info, additions } = uiStrings.notifications;
 const containerStyle = {
   margin: '15px',
   display: 'flex',
@@ -16,13 +16,15 @@ const containerStyle = {
 };
 
 class Container extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {};
     this.ipDataUrl = 'https://ipapi.co/json';
     this.weatherUrl = 'https://api.openweathermap.org/data/2.5/weather?';
     this.weatherApiKey = 'APPID=9fc75b96c3e130cffdee8b45127936db&units=metric';
     this.outfitData = [];
+    const { intl } = this.props;
+    this.formatMessage = intl.formatMessage;
   }
 
   componentDidMount() {
@@ -34,12 +36,16 @@ class Container extends Component {
           this.getWeatherByCoords(lat, lon);
         },
         error => {
-          const notification = error.message + info.ipInfo;
+          const notification =
+            error.message +
+            this.formatMessage({ id: 'notifications.info.ipInfo' });
           this.getIpData(notification);
         }
       );
     } else {
-      const notification = info.support + info.ipInfo;
+      const notification =
+        this.formatMessage({ id: 'notifications.info.support' }) +
+        this.formatMessage({ id: 'notifications.info.ipInfo' });
       this.getIpData(notification);
     }
   }
@@ -51,7 +57,8 @@ class Container extends Component {
       .catch(error => {
         error = {
           error,
-          message: `${error.message + additions.weatherData}`,
+          message: `${error.message +
+            this.formatMessage({ id: 'notifications.additions.weatherData' })}`,
           stack: error.stack
         };
         this.setState({ error });
@@ -67,7 +74,8 @@ class Container extends Component {
       .catch(error => {
         error = {
           error,
-          message: `${error.message + additions.ipData}`,
+          message: `${error.message +
+            this.formatMessage({ id: 'notifications.additions.ipData' })}`,
           stack: error.stack
         };
         this.setState({ error });
@@ -82,7 +90,8 @@ class Container extends Component {
       .catch(error => {
         error = {
           error,
-          message: `${error.message + additions.weatherData}`,
+          message: `${error.message +
+            this.formatMessage({ id: 'notifications.additions.weatherData' })}`,
           stack: error.stack
         };
         this.setState({ error });
@@ -90,7 +99,7 @@ class Container extends Component {
   };
 
   getOutfitData = weatherData => {
-    this.outfitData = uiStrings.clothesData.filter(clothes => {
+    this.outfitData = clothesData.filter(clothes => {
       const { main } = weatherData.weather;
       const { temp } = weatherData.main;
       const { rain, maxTemp, minTemp, cloth } = clothes;
@@ -135,4 +144,4 @@ class Container extends Component {
   }
 }
 
-export default Container;
+export default injectIntl(Container);

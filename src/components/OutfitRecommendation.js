@@ -1,26 +1,29 @@
 // module "OutfitRecommendation.js"
-import React from 'react'
-import Card from './Card'
-import uiStrings from './data/stringsEN'
+import React from 'react';
+import { injectIntl } from 'react-intl';
+import Card from './Card';
 
 const olStyle = {
   marginLeft: '20px',
   marginTop: '10px'
-}
+};
 
-const OutfitRecommendation = ({outfitData}) => {
+const OutfitRecommendation = props => {
+  const { intl, outfitData } = props;
+  const { formatMessage } = intl;
   return (
-  <Card className="Card"
-        cardName={uiStrings.cardTitles.recommendation}
-        cardContent={
-          <ol style={olStyle}>
-            {outfitData.map(data => {
-              return <li>{data.description}</li>
-            })}
+    <Card
+      className="Card"
+      cardName={formatMessage({ id: 'cardTitles.recommendation' })}
+      cardContent={
+        <ol style={olStyle}>
+          {outfitData.map(data => {
+            return <li>{data.description}</li>;
+          })}
         </ol>
       }
-      />
-    )
-}
+    />
+  );
+};
 
-export default OutfitRecommendation;
+export default injectIntl(OutfitRecommendation);
