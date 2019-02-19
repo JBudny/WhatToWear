@@ -99,10 +99,10 @@ class Container extends Component {
   };
 
   getOutfitData = weatherData => {
-    this.outfitData = clothesData.filter(clothes => {
+    this.outfitData = clothesData.filter(clothData => {
       const { main } = weatherData.weather;
       const { temp } = weatherData.main;
-      const { rain, maxTemp, minTemp, cloth } = clothes;
+      const { rain, maxTemp, minTemp, name } = clothData;
       if (weatherData.weather) {
         if (
           main !== 'rain' &&
@@ -111,12 +111,12 @@ class Container extends Component {
         ) {
           if (temp >= minTemp && rain !== '1') {
             if (temp <= maxTemp) {
-              return cloth;
+              return name;
             }
           }
         } else if (temp >= minTemp) {
           if (temp <= maxTemp) {
-            return cloth;
+            return name;
           }
         }
       }

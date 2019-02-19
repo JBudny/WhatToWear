@@ -1,26 +1,26 @@
-// "clothesData.js"
+// "nameesData.js"
 
 const clothesData = [
-    {cloth:'warmHat',minTemp:'-20',maxTemp:'8',description:'Winter hat'},
-    {cloth:'winterJacket',minTemp:'-20',maxTemp:'8',description:'Winter jacket'},
-    {cloth:'thickGloves',minTemp:'-20',maxTemp:'5',description:'Winter gloves'},
-    {cloth:'warmPants',minTemp:'-20',maxTemp:'8',description:'Winter pants'},
-    {cloth:'scarf',minTemp:'-20',maxTemp:'10',description:'Scarf'},
-    {cloth:'sweater',minTemp:'-20',maxTemp:'10',description:'Sweater'},
-    {cloth:'warmSocks',minTemp:'-20',maxTemp:'10',description:'Warm socks'},
-    {cloth:'winterShoes',minTemp:'-20',maxTemp:'10',description:'Winter shoes'},
-    {cloth:'cap',minTemp:'16',maxTemp:'50',description:'Cap'},
-    {cloth:'springJacket',minTemp:'9',maxTemp:'15',description:'Spring jacket'},
-    {cloth:'jeans',minTemp:'9',maxTemp:'23',description:'Jeans'},
-    {cloth:'hoodie',minTemp:'11',maxTemp:'23',description:'Hoodie'},
-    {cloth:'boatSocks',minTemp:'11',maxTemp:'50',description:'Boat socks'},
-    {cloth:'regularShoes',minTemp:'11',maxTemp:'23',description:'Regular shoes'},
-    {cloth:'tShirt',minTemp:'24',maxTemp:'50',description:'T-shirt'},
-    {cloth:'shorts',minTemp:'24',maxTemp:'50',description:'Shorts'},
-    {cloth:'sandals',minTemp:'24',maxTemp:'50',description:'Sandals'},
-    {cloth:'raincoat',minTemp:'-20',maxTemp:'50',rain:'1',description:'Raincoat'},
-    {cloth:'wellingtons',minTemp:'-20',maxTemp:'50',rain:'1',description:'Wellingtons'},
-    {cloth:'umbrella',minTemp:'-20',maxTemp:'50',rain:'1',description:'Umbrella'}
+    {name:'warmHat',minTemp:'-20',maxTemp:'8'},
+    {name:'winterJacket',minTemp:'-20',maxTemp:'8'},
+    {name:'thickGloves',minTemp:'-20',maxTemp:'5'},
+    {name:'warmPants',minTemp:'-20',maxTemp:'8'},
+    {name:'scarf',minTemp:'-20',maxTemp:'10'},
+    {name:'sweater',minTemp:'-20',maxTemp:'10'},
+    {name:'warmSocks',minTemp:'-20',maxTemp:'10'},
+    {name:'winterShoes',minTemp:'-20',maxTemp:'10'},
+    {name:'cap',minTemp:'16',maxTemp:'50'},
+    {name:'springJacket',minTemp:'9',maxTemp:'15'},
+    {name:'jeans',minTemp:'9',maxTemp:'23'},
+    {name:'hoodie',minTemp:'11',maxTemp:'23'},
+    {name:'boatSocks',minTemp:'11',maxTemp:'50'},
+    {name:'regularShoes',minTemp:'11',maxTemp:'23'},
+    {name:'tShirt',minTemp:'24',maxTemp:'50'},
+    {name:'shorts',minTemp:'24',maxTemp:'50'},
+    {name:'sandals',minTemp:'24',maxTemp:'50'},
+    {name:'raincoat',minTemp:'-20',maxTemp:'50',rain:'1'},
+    {name:'wellingtons',minTemp:'-20',maxTemp:'50',rain:'1'},
+    {name:'umbrella',minTemp:'-20',maxTemp:'50',rain:'1'}
   ]
 
 export default clothesData;

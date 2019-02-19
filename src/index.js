@@ -19,7 +19,7 @@ addLocaleData([...localeEn, ...localePl]);
 
 ReactDOM.render(
   <IntlProvider locale={language} messages={messages[language]}>
-    <App />
+    <App getIntlMessages={() => messages[language]}/>
   </IntlProvider>,
   document.getElementById('root')
 );
