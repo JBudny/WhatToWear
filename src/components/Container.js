@@ -38,14 +38,14 @@ class Container extends Component {
         error => {
           const notification =
             error.message +
-            this.formatMessage({ id: 'notifications.info.ipInfo' });
+            this.formatMessage({ id: `notifications.info.ipInfo`, defaultMessage:`The weather is based on your IP and can be inacurate.` });
           this.getIpData(notification);
         }
       );
     } else {
       const notification =
-        this.formatMessage({ id: 'notifications.info.support' }) +
-        this.formatMessage({ id: 'notifications.info.ipInfo' });
+        this.formatMessage({ id: `notifications.info.support`, defaultMessage:`Your browser doesn't support Geolocation_API` }) +
+        this.formatMessage({ id: `notifications.info.ipInfo`, defaultMessage:`The weather is based on your IP and can be inacurate.` });
       this.getIpData(notification);
     }
   }
@@ -58,7 +58,7 @@ class Container extends Component {
         error = {
           error,
           message: `${error.message +
-            this.formatMessage({ id: 'notifications.additions.weatherData' })}`,
+            this.formatMessage({ id: `notifications.additions.weatherData`, defaultMessage:` weather data.` })}`,
           stack: error.stack
         };
         this.setState({ error });
@@ -75,7 +75,7 @@ class Container extends Component {
         error = {
           error,
           message: `${error.message +
-            this.formatMessage({ id: 'notifications.additions.ipData' })}`,
+            this.formatMessage({ id: `notifications.additions.ipData`, defaultMessage:` your ip data. You can try to type your city by hand.`  })}`,
           stack: error.stack
         };
         this.setState({ error });
@@ -91,7 +91,7 @@ class Container extends Component {
         error = {
           error,
           message: `${error.message +
-            this.formatMessage({ id: 'notifications.additions.weatherData' })}`,
+            this.formatMessage({ id: `notifications.additions.weatherData`, defaultMessage:` weather data.` })}`,
           stack: error.stack
         };
         this.setState({ error });

@@ -71,7 +71,7 @@ const cityListAutocomplete = event => {
         onInput={cityListAutocomplete}
         list="suggestionsList"
         autoComplete="off"
-        placeholder={formatMessage({ id: 'inputLocation.placeholder' })}
+        placeholder={formatMessage({ id: `inputLocation.placeholder`, defaultMessage:`e.g. Bangkok` })}
         onKeyUp={searchByEnterKey}
       />
       <datalist id="suggestionsList" />

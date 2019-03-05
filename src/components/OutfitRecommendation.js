@@ -14,11 +14,11 @@ const OutfitRecommendation = props => {
   return (
     <Card
       className="Card"
-      cardName={formatMessage({ id: 'cardTitles.recommendation' })}
+      cardName={formatMessage({ id: `cardTitles.recommendation`, defaultMessage:`What to wear?` })}
       cardContent={
         <ol style={olStyle}>
           {outfitData.map(cloth => {
-            return <li>{formatMessage({ id: `clothes.${cloth.name}` })}</li>;
+            return <li>{formatMessage({ id: `clothes.${cloth.name}`, defaultMessage:`${cloth.name}` })}</li>;
           })}
         </ol>
       }

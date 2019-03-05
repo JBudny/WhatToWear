@@ -8,7 +8,7 @@ const OutfitPicture = props => {
   const { formatMessage } = intl;
   return (
     <Card
-      cardName={formatMessage({ id: 'cardTitles.picture' })}
+      cardName={formatMessage({ id: `cardTitles.picture`, defaultMessage:`Clothing picture` })}
       cardContent={<Fragment />}
     />
   );
