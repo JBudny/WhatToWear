@@ -1,6 +1,7 @@
 // module "InputLocation.js"
 import React from 'react';
 import { FormattedMessage, injectIntl } from 'react-intl';
+import cityList from './data/city.list.min'
 
 const inputLocationStyle = {
   width: '100%',
@@ -12,27 +13,23 @@ const InputLocation = props => {
   const { intl } = props
   const { formatMessage } = intl;
   const suggestionsList = document.getElementById('suggestionsList');
-  const cityListAutocomplete = event => {
-    if (event.currentTarget.value.length >= 2) {
-      fetch(
-        `https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/autocomplete/json?input=locality=
-      ${event.currentTarget.value}&key=AIzaSyAds6n0BVkNWl3sIcPUs0B7SR47tfkPbek`
-      )
-        .then(suggestions => suggestions.json())
-        .then(suggestions =>
-          suggestions.predictions.map(cities => cities.description)
-        )
-        .then(cities => {
-          suggestionsList.innerHTML = '';
-          cities.forEach(city => {
-            const result = document.createElement('option');
-            result.value = city;
-            suggestionsList.appendChild(result);
-          });
-        })
-        .catch(err => console.error(err));
-    }
-  };
+
+const cityListAutocomplete = event => {
+  if (event.currentTarget.value.length >= 2) {
+    cityList.filter(city => {
+      if (city.name.includes(event.currentTarget.value)) {
+        suggestionsList.innerHTML = '';
+        return city.name
+      };
+      return null
+    }).slice(1, 6)
+    .forEach(city => {
+      const result = document.createElement('option');
+      result.value = city.name;
+      suggestionsList.appendChild(result);
+    });
+  }
+};
 
   const getWeatherBySelectedCity = () => {
     const inputValue = document.getElementById('suggestions').value;
