@@ -1,8 +1,8 @@
 // module "Content.js"
 import React from 'react';
 
-const Content = ({ content }) => {
-  return <div className="Content">{content}</div>;
+const Content = ({ cardContent }) => {
+  return <div className="Content">{cardContent}</div>;
 };
 
 export default Content;

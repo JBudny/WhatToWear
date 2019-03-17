@@ -8,7 +8,6 @@ import messagesEn from './translations/en.json';
 import messagesPl from './translations/pl.json';
 import messagesJa from './translations/ja.json';
 import registerServiceWorker from './registerServiceWorker';
-import './index.css';
 import App from './components/App';
 
 const messages = {
@@ -22,7 +21,7 @@ addLocaleData([...localeEn, ...localePl, ...localeJa]);
 
 ReactDOM.render(
   <IntlProvider locale={language} messages={messages[language]}>
-    <App getIntlMessages={() => messages[language]}/>
+    <App getIntlMessages={() => messages[language]} />
   </IntlProvider>,
   document.getElementById('root')
 );
