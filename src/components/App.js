@@ -8,12 +8,16 @@ import OutfitRecommendation from './OutfitRecommendation';
 import InputLocation from './InputLocation';
 import clothesData from './data/clothesData';
 
+const vh = window.innerHeight * 0.01;
+document.documentElement.style.setProperty('--vh', `${vh}px`);
+
 const GlobalStyle = createGlobalStyle`
   ${reset}
 
   html {
   box-sizing: border-box;
 }
+
 *,
  *::before,
  *::after {
@@ -25,6 +29,7 @@ const Wrapper = styled.div`
   padding: 0.5em;
   border: 1px solid black;
   height: 100vh;
+  height: calc(var(--vh, 1vh) * 100);
 
   @media screen and (max-width: 425px) {
     display: flex;
