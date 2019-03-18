@@ -6,12 +6,27 @@ import cityList from './data/city.list.min';
 
 const InputPanel = styled.div`
   padding: 0.5em;
-  border: 1px solid black;
-  flex-basis: 45%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  flex-basis: 60%;
   text-align: center;
+
+  label {
+    width: 100%;
+    height: 100%;
+    font-size: 1.5em;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  input[type='text'] {
+    margin: 0.5em auto;
+    display: block;
+    width: 80%;
+    height: 3em;
+    border: none;
+    border-bottom: 1px solid black;
+  }
 `;
 
 const InputLocation = props => {

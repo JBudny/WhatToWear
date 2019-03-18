@@ -26,8 +26,6 @@ const GlobalStyle = createGlobalStyle`
 `;
 
 const Wrapper = styled.div`
-  padding: 0.5em;
-  border: 1px solid black;
   height: 100vh;
   height: calc(var(--vh, 1vh) * 100);
 
@@ -39,8 +37,7 @@ const Wrapper = styled.div`
 
 const MainPanel = styled.div`
   padding: 0.5em;
-  height: 40%;
-  border: 1px solid black;
+  height: 50%;
 
   @media screen and (max-width: 425px) {
     display: flex;
@@ -50,8 +47,7 @@ const MainPanel = styled.div`
 
 const OutfitPanel = styled.div`
   padding: 0.5em;
-  height: 40%;
-  border: 1px solid black;
+  height: 30%;
   h2 {
     margin-bottom: 0.5em;
   }
@@ -65,7 +61,25 @@ const OutfitPanel = styled.div`
 const DetailsPanel = styled.div`
   padding: 0.5em;
   height: 20%;
-  border: 1px solid black;
+
+  .LocationInfo {
+    padding-bottom: 0.5em;
+    text-align: center;
+    font-size: 1.5em;
+    height: 30%;
+  }
+
+  .weatherData {
+    width: 100%;
+    height: 70%;
+  }
+
+  .weatherData > * {
+    text-align: center;
+    height: 100%;
+    width: 25%;
+    display: inline-block;
+  }
 `;
 
 class App extends Component {
@@ -77,6 +91,7 @@ class App extends Component {
     this.weatherApiKey = 'APPID=9fc75b96c3e130cffdee8b45127936db&units=metric';
     this.outfitData = [];
     this.mainPanelData = [];
+    this.weatherData = {};
     const { intl } = this.props;
     this.formatMessage = intl.formatMessage;
   }
@@ -171,6 +186,8 @@ class App extends Component {
   };
 
   getOutfitData = weatherData => {
+    this.weatherData = weatherData;
+    console.log(this.weatherData.sys.country);
     this.outfitData = clothesData.filter(clothData => {
       const { main } = weatherData.weather;
       const { temp } = weatherData.main;
@@ -224,13 +241,40 @@ class App extends Component {
               <OutfitPicture />
             </OutfitPanel>
           ) : null}
-          <DetailsPanel className="DetailsPanel">
-            {/* <LocationInfo />
-            <Max />
-            <Min />
-            <Hum />
-            <Press /> */}
-          </DetailsPanel>
+
+          {this.weatherData.main ? (
+            <DetailsPanel className="DetailsPanel">
+              <div className="LocationInfo">{`${this.weatherData.name}, ${
+                this.weatherData.sys.country
+              }`}</div>
+              <ul className="weatherData">
+                <li>
+                  <span>
+                    {this.weatherData.main.temp_max +
+                      this.props.intl.formatMessage({
+                        id: `additions.temp`,
+                        defaultMessage: ` °C`
+                      })}
+                  </span>
+                </li>
+                <li>
+                  <span>
+                    {this.weatherData.main.temp_min +
+                      this.props.intl.formatMessage({
+                        id: `additions.temp`,
+                        defaultMessage: ` °C`
+                      })}
+                  </span>
+                </li>
+                <li>
+                  <span>{`${this.weatherData.main.humidity} %`}</span>
+                </li>
+                <li>
+                  <span>{`${this.weatherData.main.pressure} hPa`}</span>
+                </li>
+              </ul>
+            </DetailsPanel>
+          ) : null}
         </Wrapper>
       </Fragment>
     );

@@ -8,7 +8,6 @@ import Content from './Content';
 const WhatToWearCard = styled.div`
   padding: 0.5em;
   height: 100%;
-  border: 1px solid black;
   flex-basis: 55%;
 `;
 

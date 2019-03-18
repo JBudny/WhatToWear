@@ -5,8 +5,7 @@ import { injectIntl } from 'react-intl';
 
 const MainWeather = styled.div`
   padding: 0.5em;
-  border: 1px solid black;
-  flex-basis: 55%;
+  flex-basis: 40%;
   display: flex;
   justify-content: center;
   align-items: center;

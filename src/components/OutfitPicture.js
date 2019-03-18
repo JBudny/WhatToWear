@@ -8,7 +8,6 @@ import Content from './Content';
 const OutfitCard = styled.div`
   padding: 0.5em;
   height: 100%;
-  border: 1px solid black;
   flex-basis: 45%;
 `;
 
